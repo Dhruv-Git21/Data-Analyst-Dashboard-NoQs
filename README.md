@@ -16,5 +16,8 @@ Tut-6:https://docs.google.com/spreadsheets/d/1X3D5jSmDq40rfr9j1Kba5cixrzUElblfzN
 Tut-7:https://docs.google.com/spreadsheets/d/1pxyni1IKsI2P8gGamLOhOne0E7uTTGFRRTpOanfST-I/edit?usp=sharing
 
 ### Self-Project
-#### Road Accident Monitoring
-Sheet Link:(Uploading Soon)
+#### Order Management Report
+Google Studio Link : https://lookerstudio.google.com/reporting/2741bdf9-7511-4646-a09f-4f2ee3c39322
+
+## Week 2 -
+
