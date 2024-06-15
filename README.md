@@ -20,4 +20,8 @@ Tut-7:https://docs.google.com/spreadsheets/d/1pxyni1IKsI2P8gGamLOhOne0E7uTTGFRRT
 Google Studio Link : https://lookerstudio.google.com/reporting/2741bdf9-7511-4646-a09f-4f2ee3c39322
 
 ## Week 2 -
+### Team Project 
+#### Created a Startup Analysis Dashboard focused for a small startup to grow analysing the trends in pre-existing large startups, their top key features like (CAC,MAU,CLV,etc.)
+Created our own DataSet based on everyday learnings which is totaly random set of 100 rows and several feature columns, used helper sheets, drop-down menus, check-boxes for dynamic overlays in the sheet.
 
+Sheet Link : https://docs.google.com/spreadsheets/d/1XESdVicpdz-ZlzafiQVC6zS2KjUTIDQ780hyIZgGAjg/edit?usp=sharing
