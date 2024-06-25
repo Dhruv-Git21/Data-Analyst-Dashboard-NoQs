@@ -1,0 +1,43 @@
+var sheetId="1I9B5gSlp_yMHqZsV69qZE8QjLlUmbUyJKpfP7HsafLI";
+var sheetName="new";
+
+
+function createAndSendCertificates() {
+  const templateDocId = '1_ZyI2wXpz-qHpnoe2DrHPPIfRVIOpTh9CglPEIOSVEg';
+  const sheet = SpreadsheetApp.openById(sheetId).getSheetByName(sheetName);
+  const values = sheet.getDataRange().getValues();
+  const folder = DriveApp.getFolderById('17YdscM63T66U4GyFRhLtLsKbxzJMQpor');
+
+  for (let i = 1; i < values.length; i++) {
+    const name = values[i][2];
+    const email = values[i][3];
+    const profile = values[i][4];
+    const fromDate = values[i][5];
+    const toDate = values[i][6];
+
+    const copy = DriveApp.getFileById(templateDocId).makeCopy(${name} Certificate, folder);
+    const doc = DocumentApp.openById(copy.getId());
+    const body = doc.getBody();
+
+    body.replaceText('{{name}}', name);
+    body.replaceText('{{from date}}', fromDate);
+    body.replaceText('{{to date}}', toDate);
+    body.replaceText('{{profile}}', profile);
+
+    doc.saveAndClose();
+
+    // Convert document
+    const pdf = DriveApp.getFileById(copy.getId()).getAs('application/pdf');
+
+    // Send email
+    const subject = Dear ${name}: Enclosed herewtih the Certificate of your Internship;
+    const message = Dear ${name},\n Thank you for completing internship at NoQs in the profile of ${profile}.\n We wish you all the best in your future endeavours.\n Thanking you,\n Team HR;
+
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: message,
+      attachments: [pdf]
+    });
+  }
+}
