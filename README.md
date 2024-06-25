@@ -25,3 +25,16 @@ Google Studio Link : https://lookerstudio.google.com/reporting/2741bdf9-7511-464
 Created our own DataSet based on everyday learnings which is totaly random set of 100 rows and several feature columns, used helper sheets, drop-down menus, check-boxes for dynamic overlays in the sheet.
 
 Sheet Link : https://docs.google.com/spreadsheets/d/1XESdVicpdz-ZlzafiQVC6zS2KjUTIDQ780hyIZgGAjg/edit?usp=sharing
+
+## Week 3 -
+### AI Task 1
+We selected a extension of google sheet ourselves to basically setup a work flow of creating the certificates for listed items automatically and mail the respective users. There were three different methods to be used:
+#### Firstly to mail the created certificates to user via personal mail-ids.
+#### Second we had to set up a work ID our use testing id of noqs via smtp connection and send mails directly through them.
+#### Then comes the use of built in Apps Scripts extension in google sheets to code up the desired tasks and run it automatically.
+
+### AI Task 2
+We selected a extension of google sheet ourselves to basically setup a work flow of sending birthday greetings to the respective users on their birth dates. There were three different methods to be used:
+#### Firstly to mail the greeting card via personal mail-ID.
+#### Second we had to set up an alternate buisness contact to send the message via whatsapp automation.
+#### Then comes the use of built in Apps Scripts extension in google sheets to code up the desired tasks and run it automatically.
