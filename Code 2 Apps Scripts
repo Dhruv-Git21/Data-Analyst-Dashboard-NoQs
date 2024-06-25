@@ -1,0 +1,38 @@
+var sheetId="1I9B5gSlp_yMHqZsV69qZE8QjLlUmbUyJKpfP7HsafLI";
+var sheetName="Final C 2";
+
+
+function createAndSendGreetings() {
+  const sheetDocId = '1XVn8unABIPzYVC2fey9QlDz6w74fvJoMYm6-X8ZaYrA';
+  const sheet = SpreadsheetApp.openById(sheetId).getSheetByName(sheetName);
+  const values = sheet.getDataRange().getValues();
+  const folder = DriveApp.getFolderById('1FIRt8UxTt1IXgfS_8shH3K-KmIZDQ-of');
+
+  for (let i = 1; i < values.length; i++) {
+    const name = values[i][2];
+    const email = values[i][4];
+    
+
+    const copy = DriveApp.getFileById(sheetDocId).makeCopy(${name} Greetings, folder);
+    const presentation = SlidesApp.openById(copy.getId());
+    const slides = presentation.getSlides();
+    const slide=slides[0];
+    slide.replaceAllText('{{name}}', name);
+
+    presentation.saveAndClose();
+
+    // Convert document
+    const pdf = DriveApp.getFileById(copy.getId()).getAs('application/pdf');
+
+    // Send email
+    const subject = Dear ${name}: Greetings for your Birthday;
+    const message = Dear ${name},\n we wish you a very Happy Birthday. May all your ventures be successful.;
+
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: message,
+      attachments: [pdf]
+    });
+  }
+}
