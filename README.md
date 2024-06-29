@@ -38,3 +38,13 @@ We selected a extension of google sheet ourselves to basically setup a work flow
 #### Firstly to mail the greeting card via personal mail-ID.
 #### Second we had to set up an alternate buisness contact to send the message via whatsapp automation.
 #### Then comes the use of built in Apps Scripts extension in google sheets to code up the desired tasks and run it automatically.
+
+## Week 4 -
+### Individual Task
+#### Case Study task on an individuals FD account management report
+Google Sheets Link : https://docs.google.com/spreadsheets/d/1rQUV35KAuljN4WsrUOLhQX-ffo8VTnz8tgHI2jfTwak/edit?gid=0#gid=0
+
+### Team Task
+#### Create a POWER BI Dashboard on a specific selected Dataset
+We selectted a medical facility dataset from Kaggle and formatted it to our choice and created a dynamic dashboard on POWER BI
+[Power BI Dashboard Final Final.pdf](https://github.com/user-attachments/files/16040249/Power.BI.Dashboard.Final.Final.pdf)
