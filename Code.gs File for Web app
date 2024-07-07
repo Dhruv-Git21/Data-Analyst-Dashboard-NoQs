@@ -1,0 +1,104 @@
+var url = "https://docs.google.com/spreadsheets/d/1qgXXNE9QZuIkKXBMdDYJdysYOm0GmgmCS-4RRn4uFwY/edit?gid=784249123#gid=784249123";
+var ss = SpreadsheetApp.openByUrl(url);
+var sheet = ss.getSheetByName("Sheet1");
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('web');
+}
+
+function createRecord(data) {
+  sheet.appendRow([
+    data.name, 
+    data.age, 
+    data.gender, 
+    data.blood, 
+    data.medical, 
+    data.doctor, 
+    data.hospital, 
+    data.insurance, 
+    data.billing, 
+    data.room, 
+    data.admissionType, 
+    data.medication, 
+    data.testResults
+  ]);
+  return 'Record created successfully!';
+}
+
+function getRecord(name) {
+  var data = sheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] == name) {
+      return data[i];
+    }
+  }
+  return null;
+}
+
+function updateRecord(record) {
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] == record.name) {
+      var rowIndex = i + 1; // Spreadsheet rows are 1-indexed
+      for (var key in record) {
+        var headerName = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize first letter
+
+        // Handle specific column names matching
+        if (key === 'age' || key === 'gender' || key === 'blood' || key === 'medical' || key === 'doctor' || key === 'hospital' || key === 'insurance' || key === 'billing' || key === 'room' || key === 'admissionType' || key === 'medication' || key === 'testResults') {
+          headerName = key.split(/(?=[A-Z])/).map(function (word) {
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          }).join(' ');
+
+          if (key === 'admissionType') {
+            headerName = 'Admission Type';
+          } else if (key === 'testResults') {
+            headerName = 'Test Results';
+          } else if (key === 'medical') {
+            headerName = 'Medical Condition';
+          } else if (key === 'insurance') {
+            headerName = 'Insurance Provider';
+          } else if (key === 'billing') {
+            headerName = 'Billing Amount';
+          } else if (key === 'room') {
+            headerName = 'Room Number';
+          } else if (key === 'blood') {
+            headerName = 'Blood Type';
+          }
+        }
+
+        var columnIndex = headers.indexOf(headerName);
+        if (columnIndex != -1) {
+          sheet.getRange(rowIndex, columnIndex + 1).setValue(record[key]);
+        } else {
+          console.log(`Header ${headerName} not found in the sheet.`);
+        }
+      }
+      return 'Record updated successfully!';
+    }
+  }
+  return 'Record not found!';
+}
+
+
+
+function deleteRecord(name) {
+  var data = sheet.getDataRange().getValues();
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] == name) {
+      sheet.deleteRow(i + 1);
+      return 'Record deleted successfully!';
+    }
+  }
+  return 'Record not found!';
+}
+
+function getAllRecords() {
+  var data = sheet.getDataRange().getValues();
+  return data.slice(1); // Exclude the headers
+}
+
+function getScriptURL() {
+  return ScriptApp.getService().getUrl();
+}
