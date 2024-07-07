@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body, html {
+      background-color: #eb4034;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+    #home-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 10px;
+      width: 70px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #home-button:hover {
+      background-color: #0056b3;
+    }
+
+    #initial-content {
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .button-container button{
+      margin-left: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .input-container {
+      display: none;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      width: 400px;
+    }
+    .input-container h3 {
+      margin-bottom: 10px;
+    }
+    .input-container input[type="text"], .input-container select {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .input-container label {
+      margin-right: 10px;
+    }
+    .input-container button {
+      width: 100%;
+      background-color: #28a745;
+    }
+    .input-container button:hover {
+      background-color: #218838;
+    }
+    #update-container {
+      background-color: #d4edda; /* Light green background for update section */
+    }
+    #update-container button {
+      background-color: #ffc107;
+    }
+    #update-container button:hover {
+      background-color: #e0a800;
+    }
+    #delete-container {
+      background-color: #f8d7da; /* Light red background for delete section */
+    }
+    #delete-container button {
+      background-color: #dc3545;
+    }
+    #delete-container button:hover {
+      background-color: #c82333;
+    }
+    #read-container {
+      background-color: #f8f9fa; /* Light background for read section */
+      padding: 20px; /* Adding padding to avoid table overflow */
+      width: 90%; /* Adjusting the width */
+      margin: 0 auto; /* Centering the container */
+    }
+    #read-container h3 {
+      text-align: center; /* Center the text of the h3 element */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pagination button {
+      padding: 8px 16px;
+      margin: 0 4px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .pagination button:hover {
+      background-color: #0056b3;
+    }
+
+    .pagination button.active {
+      font-weight: bold;
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <button id="home-button" onclick="showHome()">Home</button>
+  
+  <div id="initial-content">
+    <h2>Patient Record Management</h2>
+    <div class="button-container">
+      <button onclick="showCreate()">CREATE</button>
+      <button onclick="showRead()">READ</button>
+      <button onclick="showUpdate()">UPDATE</button>
+      <button onclick="showDelete()">DELETE</button>
+    </div>
+  </div>
+
+  <div id="create-container" class="input-container">
+    <h3>Create Record</h3>
+    Name: <input type="text" id="create-name"><br>
+    Age: <input type="number" id="create-age"><br>
+    Gender: 
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label><br>
+    Blood Type: 
+    <select id="create-blood">
+      <option value="A+">A+</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B-">B-</option>
+      <option value="AB+">AB+</option>
+      <option value="AB-">AB-</option>
+      <option value="O+">O+</option>
+      <option value="O-">O-</option>
+    </select><br>
+    Medical Condition: <input type="text" id="create-medical"><br>
+    Doctor: <input type="text" id="create-doctor"><br>
+    Hospital: <input type="text" id="create-hospital"><br>
+    Insurance Provider: <input type="text" id="create-insurance"><br>
+    Billing Amount: <input type="number" id="create-billing"><br>
+    Room Number: <input type="number" id="create-room"><br>
+    Admission Type: 
+    <label><input type="radio" name="admission-type" value="emergency"> Emergency</label>
+    <label><input type="radio" name="admission-type" value="urgent"> Urgent</label>
+    <label><input type="radio" name="admission-type" value="elective"> Elective</label><br>
+    Medication: <input type="text" id="create-medication"><br>
+    Test Results: 
+    <label><input type="radio" name="test-results" value="abnormal"> Abnormal</label>
+    <label><input type="radio" name="test-results" value="normal"> Normal</label>
+    <label><input type="radio" name="test-results" value="inconclusive"> Inconclusive</label><br>
+    <button onclick="createRecord()">RUN</button>
+    <p id="create-result"></p>
+  </div>
+
+  <div id="update-container" class="input-container">
+    <h3>Update Record</h3>
+    Name: <input type="text" id="update-name"><br>
+    <button onclick="showUpdateData()"> Show Data </button>
+    <div id="update-data-container">
+      <p id="update-data"></p>
+      <div id="update-form-container" style="display:none;">
+        Age: <input type="number" id="update-age"><br>
+        Gender: 
+        <label><input type="radio" name="update-gender" value="Male"> Male</label>
+        <label><input type="radio" name="update-gender" value="Female"> Female</label><br>
+        Blood Type: 
+        <select id="update-blood">
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select><br>
+        Medical Condition: <input type="text" id="update-medical"><br>
+        Doctor: <input type="text" id="update-doctor"><br>
+        Hospital: <input type="text" id="update-hospital"><br>
+        Insurance Provider: <input type="text" id="update-insurance"><br>
+        Billing Amount: <input type="number" id="update-billing"><br>
+        Room Number: <input type="number" id="update-room"><br>
+        Admission Type: 
+        <label><input type="radio" name="update-admission-type" value="emergency"> Emergency</label>
+        <label><input type="radio" name="update-admission-type" value="urgent"> Urgent</label>
+        <label><input type="radio" name="update-admission-type" value="elective"> Elective</label><br>
+        Medication: <input type="text" id="update-medication"><br>
+        Test Results: 
+        <label><input type="radio" name="update-test-results" value="abnormal"> Abnormal</label>
+        <label><input type="radio" name="update-test-results" value="normal"> Normal</label>
+        <label><input type="radio" name="update-test-results" value="inconclusive"> Inconclusive</label><br>
+        <button onclick="updateRecord()">RUN</button>
+      </div>
+    </div>
+    <p id="update-result"></p>
+  </div>
+
+  <div id="delete-container" class="input-container">
+    <h3>Delete Record</h3>
+    Name: <input type="text" id="delete-name"><br>
+    <button onclick="deleteRecord()">RUN</button>
+    <p id="delete-result"></p>
+  </div>
+
+  <div id="read-container" class="input-container">
+    <h3>All Records</h3>
+    <div id="table-container"></div>
+    <div class="pagination" id="pagination-container"></div>
+  </div>
+
+  <script>
+    var currentPage = 1;
+    var recordsPerPage = 10;
+    var allRecords = [];
+
+    function showHome() {
+      document.getElementById("initial-content").style.display = "block";
+      document.getElementById("create-container").style.display = "none";
+      document.getElementById("update-container").style.display = "none";
+      document.getElementById("delete-container").style.display = "none";
+      document.getElementById("read-container").style.display = "none";
+    }
+
+    function showCreate() {
+      document.getElementById('initial-content').style.display = 'none';
+      document.getElementById('create-container').style.display = 'block';
+      document.getElementById("update-container").style.display = "none";
+      document.getElementById("delete-container").style.display = "none";
+      document.getElementById("read-container").style.display = "none";
+    }
+
+    function showUpdate() {
+      document.getElementById('initial-content').style.display = 'none';
+      document.getElementById("create-container").style.display = "none";
+      document.getElementById('update-container').style.display = 'block';
+      document.getElementById("delete-container").style.display = "none";
+      document.getElementById("read-container").style.display = "none";
+    }
+
+    function showDelete() {
+      document.getElementById('initial-content').style.display = 'none';
+      document.getElementById("create-container").style.display = "none";
+      document.getElementById("update-container").style.display = "none";
+      document.getElementById('delete-container').style.display = 'block';
+      document.getElementById("read-container").style.display = "none";
+    }
+
+    function showRead() {
+      document.getElementById('initial-content').style.display = 'none';
+      document.getElementById('read-container').style.display = 'block';
+      fetchAllRecords();
+    }
+
+    function createRecord() {
+      var data = {
+        name: document.getElementById('create-name').value,
+        age: document.getElementById('create-age').value,
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        blood: document.getElementById('create-blood').value,
+        medical: document.getElementById('create-medical').value,
+        doctor: document.getElementById('create-doctor').value,
+        hospital: document.getElementById('create-hospital').value,
+        insurance: document.getElementById('create-insurance').value,
+        billing: document.getElementById('create-billing').value,
+        room: document.getElementById('create-room').value,
+        admissionType: document.querySelector('input[name="admission-type"]:checked').value,
+        medication: document.getElementById('create-medication').value,
+        testResults: document.querySelector('input[name="test-results"]:checked').value
+      };
+      google.script.run.withSuccessHandler(function(result) {
+        document.getElementById('create-result').innerText = result;
+      }).createRecord(data);
+      localStorage.setItem('showSection', 'create');
+      reLoad();
+    }
+
+    function showUpdateData() {
+      var name = document.getElementById('update-name').value;
+      google.script.run.withSuccessHandler(function(result) {
+        if (result) {
+          // document.getElementById('update-data').innerText = `Current Data: ${result}`;
+          var data = result;
+          document.getElementById('update-age').value = data[1];
+          document.querySelector('input[name="update-gender"][value="' + data[2] + '"]').checked = true;
+          document.getElementById('update-blood').value = data[3];
+          document.getElementById('update-medical').value = data[4];
+          document.getElementById('update-doctor').value = data[5];
+          document.getElementById('update-hospital').value = data[6];
+          document.getElementById('update-insurance').value = data[7];
+          document.getElementById('update-billing').value = data[8];
+          document.getElementById('update-room').value = data[9];
+          document.querySelector('input[name="update-admission-type"][value="' + data[10] + '"]').checked = true;
+          document.getElementById('update-medication').value = data[11];
+          document.querySelector('input[name="update-test-results"][value="' + data[12] + '"]').checked = true;
+          document.getElementById('update-form-container').style.display = 'block';
+        } else {
+          document.getElementById('update-data').innerText = 'Record not found';
+        }
+      }).getRecord(name);
+    }
+
+    function updateRecord() {
+      var record = {
+        name: document.getElementById('update-name').value,
+        age: document.getElementById('update-age').value,
+        gender: document.querySelector('input[name="update-gender"]:checked').value,
+        blood: document.getElementById('update-blood').value,
+        medical: document.getElementById('update-medical').value,
+        doctor: document.getElementById('update-doctor').value,
+        hospital: document.getElementById('update-hospital').value,
+        insurance: document.getElementById('update-insurance').value,
+        billing: document.getElementById('update-billing').value,
+        room: document.getElementById('update-room').value,
+        admissionType: document.querySelector('input[name="update-admission-type"]:checked').value,
+        medication: document.getElementById('update-medication').value,
+        testResults: document.querySelector('input[name="update-test-results"]:checked').value
+      };
+      google.script.run.withSuccessHandler(function(result) {
+        document.getElementById('update-result').innerText = result;
+      }).updateRecord(record);
+      localStorage.setItem('showSection', 'update');
+      reLoad();
+    }
+
+    function deleteRecord() {
+      var name = document.getElementById('delete-name').value;
+      google.script.run.withSuccessHandler(function(result) {
+        document.getElementById('delete-result').innerText = result;
+        if (result == 'Record deleted successfully!'){
+          localStorage.setItem('showSection', 'delete');
+          reLoad();
+        }
+      }).deleteRecord(name);      
+    }
+
+    function fetchAllRecords() {
+      google.script.run.withSuccessHandler(function(result) {
+        allRecords = result;
+        displayRecords(currentPage);
+      }).getAllRecords();
+    }
+
+    function displayRecords(page) {
+      var tableContainer = document.getElementById('table-container');
+      tableContainer.innerHTML = '';
+
+      var start = (page - 1) * recordsPerPage;
+      var end = start + recordsPerPage;
+      var paginatedRecords = allRecords.slice(start, end);
+
+      var table = document.createElement('table');
+      table.style.width = '100%';
+      table.style.borderCollapse = 'collapse';
+      
+      var header = table.createTHead();
+      var headerRow = header.insertRow(0);
+      
+      var headers = ["Name", "Age", "Gender", "Blood Type", "Medical Condition", "Doctor", "Hospital", "Insurance Provider", "Billing Amount", "Room Number", "Admission Type", "Medication", "Test Results"];
+      headers.forEach(function(headerText) {
+        var cell = headerRow.insertCell();
+        cell.textContent = headerText;
+        cell.style.border = '1px solid #ccc';
+        cell.style.padding = '8px';
+        cell.style.backgroundColor = '#007BFF';
+        cell.style.color = 'white';
+        cell.style.fontWeight = 'bold';
+      });
+
+      var body = table.createTBody();
+      
+      paginatedRecords.forEach(function(record) {
+        var row = body.insertRow();
+        record.forEach(function(cellData) {
+          var cell = row.insertCell();
+          cell.textContent = cellData;
+          cell.style.border = '1px solid #ccc';
+          cell.style.padding = '8px';
+        });
+      });
+
+      tableContainer.appendChild(table);
+      updatePagination(page);
+    }
+
+    function updatePagination(page) {
+  var paginationContainer = document.getElementById('pagination-container');
+  paginationContainer.innerHTML = '';
+
+  var totalPages = Math.ceil(allRecords.length / recordsPerPage);
+  var maxPagesToShow = 10; // Maximum pagination buttons to show
+
+  var startPage = Math.max(1, page - Math.floor(maxPagesToShow / 2));
+  var endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+  if (endPage - startPage + 1 < maxPagesToShow) {
+    startPage = Math.max(1, endPage - maxPagesToShow + 1);
+  }
+
+  if (startPage > 1) {
+    var firstButton = document.createElement('button');
+    firstButton.textContent = '1';
+    firstButton.onclick = function() {
+      displayRecords(1);
+    };
+    paginationContainer.appendChild(firstButton);
+
+    if (startPage > 2) {
+      var ellipsis = document.createElement('span');
+      ellipsis.textContent = '...';
+      paginationContainer.appendChild(ellipsis);
+    }
+  }
+
+  for (var i = startPage; i <= endPage; i++) {
+    var pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    if (i === page) {
+      pageButton.classList.add('active');
+    }
+    pageButton.onclick = (function(pageNumber) {
+      return function() {
+        displayRecords(pageNumber);
+      };
+    })(i);
+    paginationContainer.appendChild(pageButton);
+  }
+
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      var ellipsis = document.createElement('span');
+      ellipsis.textContent = '...';
+      paginationContainer.appendChild(ellipsis);
+    }
+
+    var lastButton = document.createElement('button');
+    lastButton.textContent = totalPages;
+    lastButton.onclick = function() {
+      displayRecords(totalPages);
+    };
+    paginationContainer.appendChild(lastButton);
+  }
+}
+
+function reLoad() {
+       google.script.run
+      .withSuccessHandler(function(url){
+        window.open(url,'_top');
+      })
+      .getScriptURL();
+}
+
+function checkShowSection() {
+  var section = localStorage.getItem('showSection');
+  if (section) {
+    if (section === 'create') {
+      showCreate();
+    } else if (section === 'update') {
+      showUpdate();
+    } else if (section === 'delete') {
+      showDelete();
+    }
+    localStorage.removeItem('showSection');
+  }
+}
+
+checkShowSection();
+  </script>
+</body>
+</html>
