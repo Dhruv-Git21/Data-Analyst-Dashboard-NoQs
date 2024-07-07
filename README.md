@@ -48,3 +48,9 @@ Google Sheets Link : https://docs.google.com/spreadsheets/d/1rQUV35KAuljN4WsrUOL
 #### Create a POWER BI Dashboard on a specific selected Dataset
 We selectted a medical facility dataset from Kaggle and formatted it to our choice and created a dynamic dashboard on POWER BI
 [Power BI Dashboard Final Final.pdf](https://github.com/user-attachments/files/16040249/Power.BI.Dashboard.Final.Final.pdf)
+
+## Week 5 -
+### Team Task
+#### Create a proper functioning Web App for the data addition in the required sheet document
+So as per the dataset used in previous Power BI task we created a web app to perform all the CRUD(Create, Read, Update, Delete) operations on the data set and the enteries management system.
+Sheet Link - https://docs.google.com/spreadsheets/d/1qgXXNE9QZuIkKXBMdDYJdysYOm0GmgmCS-4RRn4uFwY/edit?usp=sharing
